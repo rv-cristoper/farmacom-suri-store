@@ -25,7 +25,14 @@ export default function Router() {
                             </RequireAuth>
                         }
                     />
-                    <Route path="/product" element={<ProductPage />} />
+                    <Route
+                        path="/product"
+                        element={
+                            <RequireAuth>
+                                <ProductPage />
+                            </RequireAuth>
+                        }
+                    />
                 </Route>
                 <Route
                     path="*"
