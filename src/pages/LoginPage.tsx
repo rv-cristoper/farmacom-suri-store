@@ -6,7 +6,7 @@ export default function LoginPage() {
     const { signIn } = useAuth();
     const onSubmit = () => {
         signIn({ id: '1', name: 'John Doe' }, () => {
-            navigate("/category", { replace: true });
+            navigate("/products", { replace: true });
         })
     }
     return (

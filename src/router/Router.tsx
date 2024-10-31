@@ -5,11 +5,9 @@ import {
     Route,
     Navigate,
 } from "react-router-dom";
-import LoginPage from "../login/LoginPage";
-import CategoryPage from "../category/CategoryPage";
-import ProductPage from "../product/ProductPage";
-import Layout from "../components/Layout";
-import RequireAuth from "../components/RequireAuth";
+import LoginPage from "../pages/LoginPage";
+import ProductPage from "../pages/ProductPage";
+import Layout from "../modules/layout/Layout";
 
 export default function Router() {
     return (
@@ -18,19 +16,15 @@ export default function Router() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route element={<Layout />}>
                     <Route
-                        path="/category"
+                        path="/"
                         element={
-                            <RequireAuth>
-                                <CategoryPage />
-                            </RequireAuth>
+                            <div>Home</div>
                         }
                     />
                     <Route
-                        path="/product"
+                        path="/products"
                         element={
-                            <RequireAuth>
-                                <ProductPage />
-                            </RequireAuth>
+                            <ProductPage />
                         }
                     />
                 </Route>
