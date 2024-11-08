@@ -16,12 +16,11 @@ type TProps = {
   placeholder?: string;
   className?: string;
   icon?: boolean;
-  handleChange?: (value: string, name?: string) => void;
+  handleChange?: (value: string, name: string) => void;
   contentClassName?: string;
   itemClassName?: string;
   defaultValue?: string | number | boolean;
   disabled?: boolean;
-  variant?: "success" | "error" | "default" | "outline"
   name?: string
   loadingItems?: boolean
 };
@@ -46,7 +45,7 @@ function SelectMenu(props: TProps) {
           defaultValue={defaultValue as string | undefined}
         />
       </SelectTrigger>
-      <SelectContent className={`z-1000 ${contentClassName || ""}`}>
+      <SelectContent className={`z-[101] ${contentClassName || ""}`}>
         {options?.map((option: TOption, index: number) => (
           <SelectItem
             className={`${itemClassName || ""}`}

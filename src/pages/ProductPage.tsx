@@ -1,64 +1,71 @@
-import { ColumnDef } from "@tanstack/react-table";
-import DataTable from "../components/data-table";
-import { useEffect, useState } from "react";
-import ProductController from "../controllers/product-controller";
-import { IProduct } from "../models/api/product";
-import { usePreferencesStore } from "../store/preferences";
+
+
+import DataTable from '../components/data-table2'
+import { ColumnMetaFilterType } from '../enums/columnMetaFilterType.enum'
+import { useEffect, useState } from 'react'
+import ProductController from '../controllers/product-controller'
+import { IProduct } from '../models/api/product'
+import { ColumnDef } from '@tanstack/react-table'
 
 export default function ProductPage() {
-    const setModalData = usePreferencesStore((state) => state.setModalData);
-    const [products, setProducts] = useState<IProduct[]>([]);
-
-    const columns: ColumnDef<IProduct>[] = [
-        {
-            accessorKey: "name",
-            header: "Nombre",
-        },
-        {
-            accessorKey: "description",
-            header: "Descripción",
-        },
-        {
-            accessorKey: "location",
-            header: "Ubicación",
-        }
-    ];
-
-    const createProductModal = () => {
-        setModalData({
-            containerClassName: "w-[90%] lg:w-[700px] text-custom-black",
-            children: (
-                <div>hola</div>
-            ),
-        })
-    };
+    const [products, setProducts] = useState<IProduct[]>([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         ProductController.get({
-            setProducts
-        });
+            setProducts,
+            setLoading,
+        })
     }, [])
+
+    const columns: ColumnDef<IProduct>[] = [
+        {
+            id: 'expander',
+            header: () => null,
+            cell: ({ row }) =>
+                <button
+                    {...{
+                        onClick: row.getToggleExpandedHandler(),
+                        style: { cursor: 'pointer' },
+                    }}
+                >
+                    {row.getIsExpanded() ? '👇' : '👉'}
+                </button>
+        },
+        {
+            accessorKey: 'name',
+            header: 'Nombre',
+            meta: {
+                filterType: ColumnMetaFilterType.TEXT,
+            }
+
+        },
+        {
+            accessorKey: 'description',
+            header: 'Descripción',
+        },
+        {
+            accessorKey: 'location',
+            header: 'Ubicación',
+        },
+    ]
 
     return (
         <DataTable
-            title="Listado de productos"
-            rightActions={
-                <button
-                    className="btn btn-primary"
-                    onClick={createProductModal}
-                >
-                    Agregar producto
-                </button>
-            }
+            title='Listado de Productos'
+            rightActions={<button>Crear</button>}
+            loading={loading}
             columns={columns}
-            data={
-                // Array.from({ length: 100 }, (_, i) => ({
-                //     name: `Producto ${i + 1}`,
-                //     description: `Descripción del producto ${i + 1}`,
-                //     location: `Ubicación del producto ${i + 1}`
-                // }))
-                products
-            }
+            renderSubComponent={renderSubComponent}
+            data={products}
         />
+    )
+}
+
+const renderSubComponent = (data: IProduct) => {
+    return (
+        <pre style={{ fontSize: '10px' }}>
+            <code>{JSON.stringify(data, null, 2)}</code>
+        </pre>
     )
 }
