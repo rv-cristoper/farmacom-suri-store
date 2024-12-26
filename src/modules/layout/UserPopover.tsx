@@ -14,8 +14,8 @@ export default function UserPopover() {
       open={showProfileOptions}
       onOpenChange={setShowProfileOptions}
     >
-      <PopoverTrigger className=" p-3 rounded-2xl" asChild>
-        <div className="flex items-center justify-center gap-2 cursor-pointer py-2 px-4 rounded-lg border text-sm">
+      <PopoverTrigger asChild>
+        <div className="flex items-center justify-center gap-2 cursor-pointer py-1 px-4 rounded-lg border border-border text-xs">
           <span>
             Cristoper
           </span>

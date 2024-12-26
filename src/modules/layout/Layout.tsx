@@ -50,18 +50,18 @@ export default function Layout() {
         <div className="flex h-screen">
             <Sidebar />
             <div className="bg-background-secondary grid grid-rows-[max-content_auto] w-full overflow-hidden transition-all duration-200">
-                <header className="bg-background flex flex-col gap-1 p-6 border-b shadow-sm">
+                <header className="bg-background flex flex-col gap-1 px-6 py-4 border-b border-border">
                     <div className="flex items-center justify-between gap-4">
                         <button
                             onClick={toggleSidebarIsOpen}
-                            className="text-custom-black focus:outline-none focus:text-gray-600"
+                            className="text-custom-black focus:outline-none"
                         >
                             <MenuIcon />
                         </button>
                         <UserPopover />
                     </div>
                 </header>
-                <main className="bg-background overflow-x-hidden overflow-y-auto m-6 rounded-xl p-4">
+                <main className="overflow-x-hidden overflow-y-auto p-6">
                     <Outlet />
                 </main>
             </div >

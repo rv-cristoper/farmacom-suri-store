@@ -38,7 +38,7 @@ function SelectMenu(props: TProps) {
       <SelectTrigger className={`${className || ""} w-full`}>
         <SelectValue
           placeholder={
-            <p className="text-text_gray opacity-50 font-normal">
+            <p className="text-color-gray opacity-50 font-normal">
               {loadingItems ? "Cargando..." : options.length ? placeholder : "Sin elementos por seleccionar"}
             </p>
           }

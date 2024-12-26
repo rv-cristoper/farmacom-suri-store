@@ -31,12 +31,15 @@ export default function Sidebar() {
   ]);
 
   return (
-    <aside className={`text-foreground pt-7 absolute h-screen inset-y-0 left-0 transform border-r shadow-md overflow-hidden ${sidebarIsOpen ?
+    <aside className={`bg-background border-r border-border pt-7 absolute h-screen inset-y-0 left-0 transform overflow-hidden ${sidebarIsOpen ?
       "translate-x-0 w-full md:w-64" :
       "-translate-x-full w-0"} md:relative transition-all duration-200 ease-in-out z-10`}
     >
       <div className="flex justify-between items-start px-4">
-        LOGO
+        <div className="w-[190px]">
+          {/* <img src="/farmacomsuri.png" alt="Logo" />
+          <p className="bg-[#386890] text-white text-center font-bold spacin" style={{ letterSpacing: "2px" }}>SURI</p> */}
+        </div>
         <button
           onClick={toggleSidebarIsOpen}
           className="focus:outline-none block md:hidden"
@@ -54,16 +57,12 @@ export default function Sidebar() {
             >
               <Link
                 to={item.href}
-                className={` text-sm w-full flex items-center justify-between py-2 px-4 transition-all duration-200 focus:outline-none rounded-lg outline-none ${itemIsSelected ?
-                  "bg-primary text-background" :
+                className={` text-sm w-full flex items-center justify-between py-2 px-4 transition-all duration-200 focus:outline-none rounded-lg outline-none font-bold ${itemIsSelected ?
+                  "bg-background-secondary text-primary" :
                   ""}`}
               >
-                <span className="flex items-center">
-                  <item.icon
-                    className={`inline-block mr-2 ${itemIsSelected ?
-                      "!text-background" :
-                      ""}`}
-                  />
+                <span className="flex items-center gap-2">
+                  <item.icon />
                   {item.title}
                 </span>
               </Link>

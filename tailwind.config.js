@@ -11,7 +11,8 @@ export default {
 				'background-secondary': 'var(--background-secondary)',
 				foreground: 'var(--foreground)',
 				primary: "var(--primary)",
-				secondary: "var(--secondary)",
+				border: "var(--border)",
+				'color-gray': "var(--color-gray)",
 			}
 		}
   },

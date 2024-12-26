@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Ellipsis,
   ListStart,
+  ChevronsUpDown,
 } from "lucide-react";
 
 interface IProps {
@@ -34,3 +35,4 @@ export const ChevronLeftIcon = (props: IProps) => <ChevronLeft  {...iconProps(pr
 export const ChevronRightIcon = (props: IProps) => <ChevronRight  {...iconProps(props)} />
 export const EllipsisIcon = (props: IProps) => <Ellipsis  {...iconProps(props)} />
 export const ListStartIcon = (props: IProps) => <ListStart  {...iconProps(props)} />
+export const ChevronsUpDownIcon = (props: IProps) => <ChevronsUpDown  {...iconProps(props)} />
