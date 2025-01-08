@@ -10,6 +10,7 @@ import { usePreferencesStore } from '../store/preferences'
 import CreateProductModal from '../modules/product/CreateProductModal'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../components/ui/table'
 import { ChevronDownIcon, ChevronRightIcon } from '../lib/icons'
+import { DateTime } from 'luxon';
 
 export default function ProductPage() {
     const { setModalData } = usePreferencesStore()
@@ -39,7 +40,7 @@ export default function ProductPage() {
         {
             accessorKey: 'stocks',
             header: 'Stock total',
-            cell: ({ row }) => `${row.original.stocks.reduce((acc, stock) => acc + stock.stock, 0)} unidades`,
+            cell: ({ row }) => `${row.original.stock.reduce((acc, stock) => acc + stock.stock, 0)} unidades`,
         },
         {
             accessorKey: 'location',
@@ -67,7 +68,7 @@ export default function ProductPage() {
             setLoading,
         })
     }
-    function addProduct() {
+    const addProduct = () => {
         setModalData({
             children: <CreateProductModal
                 getProducts={getProducts}
@@ -95,7 +96,21 @@ export default function ProductPage() {
 }
 
 const renderSubComponent = (data: IProduct) => {
-    if (!data.stocks.length) return null
+    if (!data.stock.length) return null
+    const stockByNextExpirationDate = data.stock.sort((a, b) => {
+        if (!a.expirationDate) return 1;
+        if (!b.expirationDate) return -1;
+        return new Date(a.expirationDate).getTime() - new Date(b.expirationDate).getTime();
+    });
+    const formatDate = (dateString: string) => {
+        const date = DateTime.fromISO(dateString, { locale: 'es' }).setZone('utc');;
+        if (date.isValid) {
+            const now = DateTime.now();
+            const isExpiringSoon = date <= now.plus({ months: 3 });
+            return <span className={isExpiringSoon ? 'text-red-400' : ''}>{date.toFormat('dd LLLL yyyy')}</span>
+        }
+        return 'No expira';
+    }
     return (
         <div className='bg-background p-4 grid grid-cols-[350px_auto] border-b border-border'>
             <div className='text-color-gray mt-2'>
@@ -110,9 +125,9 @@ const renderSubComponent = (data: IProduct) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data.stocks.map((stock, index) => (
+                    {stockByNextExpirationDate.map((stock, index) => (
                         <TableRow key={index} className='text-color-gray border-b border-border'>
-                            <TableCell className='p-2'>{stock.expirationDate.toString()}</TableCell>
+                            <TableCell className='p-2'>{formatDate(String(stock.expirationDate))}</TableCell>
                             <TableCell className='p-2'>{stock.stock} unidades</TableCell>
                             <TableCell className='p-2'>.</TableCell>
                         </TableRow>

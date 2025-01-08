@@ -3,7 +3,7 @@ import { BaseEntity } from "./base";
 interface IStock extends BaseEntity {
   productId: string;
   stock: number;
-  expirationDate: Date;
+  expirationDate: Date | null;
 }
 
 export interface IProduct extends BaseEntity {
@@ -16,5 +16,5 @@ export interface IProduct extends BaseEntity {
   units: number;
   packageOrBox: number;
   blisters: number;
-  stocks: IStock[];
+  stock: IStock[];
 }
